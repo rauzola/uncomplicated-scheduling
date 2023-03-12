@@ -1,10 +1,10 @@
-import react from 'react';
-import { Heading, Text } from '@ignite-ui/react';
+import react from 'react'
+import { Heading, Text } from '@ignite-ui/react'
 
 export default function Home() {
   return (
     <>
-     <Heading as="h1">Hello World</Heading>
+      <Heading as="h1">Hello World</Heading>
     </>
   )
 }
