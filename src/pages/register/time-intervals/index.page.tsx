@@ -22,6 +22,7 @@ import { z } from "zod";
 import { getWeekDays } from "@/utils/get-week-days";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { convertTimeStringToMinutes } from "@/utils/convert-time-string-to-minutes";
+import { api } from "@/lib/axios";
 
 const timeIntervalsFormSchema = z.object({
   intervals: z
@@ -51,7 +52,7 @@ const timeIntervalsFormSchema = z.object({
       (intervals) => {
         return intervals.every(
           (interval) =>
-            interval.endTimeInMinutes - 60 >= interval.startTimeInMinutes
+            interval.endTimeInMinutes - 60 >= interval.startTimeInMinutes // intervalo mínimo de horas entre um atendimento e outro
         );
       },
       {
@@ -96,9 +97,9 @@ export default function TimeIntervals(props) {
   const intervals = watch("intervals");
 
   async function handleSetTimeIntervals(data: any) {
-    const formData = data as TimeIntervalsFormOutput
+    const { intervals } = data as TimeIntervalsFormOutput
 
-    console.log(formData)
+    await api.post('/user/intervals', intervals)
   }
 
   return (
